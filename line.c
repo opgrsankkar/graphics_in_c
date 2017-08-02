@@ -87,6 +87,7 @@ int main()
 
    /* request autodetection */
    int gdriver = DETECT, gmode, errorcode;
+   /* Local Variables */
    int xmax, ymax;
 
    /* initialize graphics and local variables */
