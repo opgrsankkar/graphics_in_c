@@ -1,0 +1,38 @@
+<canvas id="stage"></canvas>
+<script src="graphics.js"></script>
+<script>
+    (async function () {
+        x = g.getmaxx() / 2;
+        y = g.getmaxy() / 2;
+        up = 0;
+        left = 0;
+        while (true) {
+            if (y >= g.getmaxy() - 30)
+                up = 1;
+            if (y <= 30)
+                up = 0;
+
+            if (x >= g.getmaxx() - 30)
+                left = 1;
+            if (x <= 30)
+                left = 0;
+
+            g.circle(x, y, 30);
+
+            /* prepare for next  frame */
+            await g.delay(15);
+            g.cleardevice();
+
+            if (up)
+                y = y - 5;
+            else
+                y = y + 5;
+
+            if (left)
+                x = x - 5;
+            else
+                x = x + 5;
+        }
+    })();
+
+</script>
