@@ -34,6 +34,7 @@ int main()
     i = 0;
     while (!kbhit()) {
 
+        //setfillstyle(HATCH_FILL, (i)%15);
         pieslice(x, y, i, i+30, 100);
 
         pieslice(x, y, i+120, i+150, 100);
