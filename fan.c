@@ -7,16 +7,29 @@
 #include <math.h>
 
 double rotatex(double x, double y, double angle, double pivotx, double pivoty){
-    return (x)*cos(angle) - (y)*sin(angle) + pivotx* (1-cos(angle)) + pivoty*(sin(angle));
-    // return (x - pivotx)*cos(angle) - (y - pivoty)*sin(angle) + pivotx;
+    angle = angle / 180.0 * 3.1415;
+    return x*cos(angle) - y*sin(angle) + pivotx*(1-cos(angle)) + pivoty*(sin(angle));
 }
 double rotatey(double x, double y, double angle, double pivotx, double pivoty){
-    return (x)*sin(angle) + (y)*cos(angle) + pivoty* (1-cos(angle)) - pivotx*(sin(angle));
-    // return (x - pivotx)*sin(angle) - (y - pivoty)*cos(angle) + pivoty;
+    angle = angle / 180.0 * 3.1415;
+    return x*sin(angle) + y*cos(angle) + pivoty*(1-cos(angle)) - pivotx*(sin(angle));
 }
 
-int kbhit()
-{
+double scalex(double x, double y, double Sx, double Sy, double pivotx, double pivoty) {
+    return (x - pivotx) * Sx + pivotx;
+}
+double scaley(double x, double y, double Sx, double Sy, double pivotx, double pivoty) {
+    return (y - pivoty) * Sy + pivoty;
+}
+
+double translatex(double x, double y, double Tx, double Ty) {
+    return x + Tx;
+}
+double translatey(double x, double y, double Tx, double Ty) {
+    return y + Ty;
+}
+
+int kbhit() {
     struct timeval tv;
     fd_set fds;
     tv.tv_sec = 0;

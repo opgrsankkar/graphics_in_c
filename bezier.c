@@ -3,30 +3,45 @@
 #include<stdio.h>
 #include<math.h>
 
+void bezier (int x[4], int y[4]) {
+    int i;
+    double t;
+    double xm,ym;
+
+	xm = getmaxx()/2;
+	ym = getmaxy()/2;
+
+	for (i=0; i<4; i++)
+		putpixel ((xm+x[i]), (ym-y[i]), YELLOW);
+
+    for (t = 0.0; t < 1.0; t += 0.01) {
+		double xt = pow (1-t, 3) * x[0] + 3 * t * pow (1-t, 2) * x[1] +
+				3 * pow (t, 2) * (1-t) * x[2] + pow (t, 3) * x[3];
+
+		double yt = pow (1-t, 3) * y[0] + 3 * t * pow (1-t, 2) * y[1] +
+				3 * pow (t, 2) * (1-t) * y[2] + pow (t, 3) * y[3];
+
+				// xt += xm;
+				// yt = ym - yt;
+		putpixel (xt,yt, WHITE);
+    }
+
+    return;
+}
+
 void main(void)
 {
 	int gdriver = DETECT,gnode,errorcode;
+	int x[4], y[4];
 	initgraph(&gdriver,&gnode, "");
-	int x0,x1,x2,x3,y0,y1,y2,y3;
-	float u=0.1;
-	float x,y;
-	printf("Enter x0 y0");
-	scanf("%d %d",&x0,&y0);
-	printf("Enter x1 y1");
-	scanf("%d %d",&x1,&y1);
-	printf("Enter x2 y2");
-	scanf("%d %d",&x2,&y2);
-	printf("Enter x3 y3");
-	scanf("%d %d",&x3,&y3);
-	for(u=0.1;u!=1;u=u+0.1)
-	{
+	
 
-	       x=(x0*pow((1-u),3))+(x1*3*u*pow((1-u),2))+(x2*3*u*u*(1-u))+(x3*u*u*u);
-	       y=(y0*pow((1-u),3))+(y1*3*u*pow((1-u),2))+(y2*3*u*u*(1-u))+(y3*u*u*u);
-	       line(x0,y0,x,y);
-	       x0=x;
-	       y0=y;
-	}
+	x[0] =   0; y[0] = 0;
+	x[1] = -50; y[1] = 100;
+	x[2] = +50; y[2] = 100;
+	x[3] =   0; y[3] = 0;
+	bezier(x,y);
+
 	getch();
 	closegraph();
 }
